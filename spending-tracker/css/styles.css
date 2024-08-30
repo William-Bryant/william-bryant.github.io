@@ -13,9 +13,8 @@ body {
 .container {
     text-align: center;
     position: absolute; /* Set relative positioning for the div */
-    width: 100%;  /*Set width of the div */
-    /* max-width: 400px; Optional: limit the maximum width */
-    height: 700px; /*Height of the div as a percentage of the viewport height */
+    width: 100vw;  /* 100% of the viewport width */
+    height: 100vh;
     max-height: 900px; /* Maximum height to prevent it from being too tall */
     margin: 0 auto; /* Center the div horizontally */
     top: 50%; /* Puts in middle */
@@ -27,7 +26,15 @@ body {
     background-color: #f9f9f9; /* Optional: add a background color */
 }
 
+@media (max-width: 480px) {
+    /* Styles applied only when screen width is 480px or less */
+    #centeredDiv {
+        width: 95%;
+        height: 70%;
+    }
 
+    
+}
 
 #date {
     margin-top: 20%;

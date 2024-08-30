@@ -15,8 +15,8 @@ body {
     position: relative; /* Set relative positioning for the div */
     width: 90%; /* Set width of the div */
     max-width: 800px; /* Optional: limit the maximum width */
-     height: 300px; /*Height of the div as a percentage of the viewport height */
-    max-height: 300px; /* Maximum height to prevent it from being too tall */
+    height: 700px; /*Height of the div as a percentage of the viewport height */
+    max-height: 900px; /* Maximum height to prevent it from being too tall */
     margin: 0 auto; /* Center the div horizontally */
     top: 50%; /* Puts in middle */
     transform: translateY(-50%); /* Adjust for for size of div to keep in middle */

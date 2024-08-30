@@ -39,7 +39,8 @@ body {
 
 #date {
     margin-top: 20%;
-    border: 1px solid red
+    border: 1px solid red;
+    width: 100%
 }
 #total_spent_header_table {
     width: auto; /* Allow table to fit content */

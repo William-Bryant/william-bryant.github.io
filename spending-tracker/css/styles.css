@@ -13,7 +13,7 @@ body {
 .container {
     text-align: center;
     position: relative; /* Set relative positioning for the div */
-    width: 80%; /* Set width of the div */
+    width: 90%; /* Set width of the div */
     max-width: 800px; /* Optional: limit the maximum width */
     margin: 0 auto; /* Center the div horizontally */
     top: 50%; /* Center the div vertically */

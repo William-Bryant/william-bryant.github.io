@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+    position: relative; /* Set relative positioning for the div */
+    width: 80%; /* Set width of the div */
+    max-width: 800px; /* Optional: limit the maximum width */
+    margin: 0 auto; /* Center the div horizontally */
+    top: 50%; /* Center the div vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    padding: 20px; /* Add padding inside the div */
+    border: 1px solid #ddd; /* Optional: add a border */
+    background-color: #f9f9f9; /* Optional: add a background color */
+}
+
+
+#total_spent_header_table {
+    width: auto; /* Allow table to fit content */
+    border-collapse: collapse;
+    margin: 0 auto; /* Center the table horizontally */
+    border: 1px solid transparent; /* Set border to transparent */
+    background-color: transparent;
+    
+}
+#total_spent_header_table th, #total_spent_header_table td {
+    padding: 8px;
+    border: 1px solid transparent; /* Set border to transparent */
+    background-color: transparent; /* Set cell background to transparent */
+}
+
+
+
+#spending_log_table {
+    width: 100%;
+    max-width: 600px;
+    border-collapse: collapse;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+#spending_log_table th, #spending_log_table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+
+#enter_purchase_button {
+    position: fixed; /* Keep the button fixed on the screen */
+    top: 10px; /* Distance from the top */
+    left: 10px; /* Distance from the left */
+    padding: 10px 20px; /* Button padding */
+    background-color: #007bff; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+    z-index: 1000; /* Ensure it appears on top of other content */
+}

@@ -3,32 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Static Site</title>
+    <title>Spending Tracker</title>
     <link rel="stylesheet" href="css/styles.css">
-    <!-- Add any additional meta tags or links to external resources here -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
+    
     <main>
-        <section>
-            <h1>spend track</h1>
-            
-            <!-- Add more content here -->
-        </section>
+
+        <div class="container" id="spending_log_containe">
+            <button id="enter_purchase_button">Enter Purchase</button><br>
+
+            <p1> XX/XX - XX/XX</p1><br>
+
+            <table id="total_spent_header_table">
+                <thead>
+                    <th>Total Spent:</th>
+                    <th id="total_spent_sum"></th>
+                </thead>
+            </table>
+
+            <table id="spending_log_table">
+                <thead>
+                    <tr>
+                        <th>Amount Spent</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+            </table>
+        </div>
+
+        <div class="container" id="purchase_entry">
+        
+        </div>
+
+
     </main>
 
     <footer>
-        <p>&copy; 2024 My Static Site. All rights reserved.</p>
-        <!-- Add social media links or additional information here -->
+        <!--<p>&copy; 2024 My Static Site. All rights reserved.</p>-->
+
     </footer>
 
     <script src="js/script.js"></script>

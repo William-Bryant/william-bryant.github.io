@@ -68,3 +68,10 @@ body {
     cursor: pointer; /* Change cursor on hover */
     z-index: 1000; /* Ensure it appears on top of other content */
 }
+
+@media (max-width: 480px) {
+    #centeredDiv {
+        width: 95%; /* Increase the width percentage on very small screens */
+        height: 70%; /* Adjust the height percentage on very small screens */
+    }
+}

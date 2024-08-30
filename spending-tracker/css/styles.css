@@ -12,14 +12,16 @@ body {
 
 .container {
     text-align: center;
-    position: relative; /* Set relative positioning for the div */
+    position: absolute; /* Set relative positioning for the div */
     width: 100%; /* Set width of the div */
-    max-width: 800px; /* Optional: limit the maximum width */
+    max-width: 400px; /* Optional: limit the maximum width */
     height: 700px; /*Height of the div as a percentage of the viewport height */
     max-height: 900px; /* Maximum height to prevent it from being too tall */
     margin: 0 auto; /* Center the div horizontally */
     top: 50%; /* Puts in middle */
-    transform: translateY(-50%); /* Adjust for for size of div to keep in middle */
+    right: 50%;
+ /* Adjust for for size of div to keep in middle */
+    transform: translate(50%, -50%);
     padding: 20px; /* Add padding inside the div */
     border: 1px solid #ddd; /* Optional: add a border */
     background-color: #f9f9f9; /* Optional: add a background color */

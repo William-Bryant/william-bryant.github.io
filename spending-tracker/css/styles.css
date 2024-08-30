@@ -15,27 +15,42 @@ body {
     position: relative; /* Set relative positioning for the div */
     width: 90%; /* Set width of the div */
     max-width: 800px; /* Optional: limit the maximum width */
+     height: 300px; /*Height of the div as a percentage of the viewport height */
+    max-height: 300px; /* Maximum height to prevent it from being too tall */
     margin: 0 auto; /* Center the div horizontally */
-    top: 50%; /* Center the div vertically */
-    transform: translateY(-50%); /* Adjust for vertical centering */
+    top: 50%; /* Puts in middle */
+    transform: translateY(-50%); /* Adjust for for size of div to keep in middle */
     padding: 20px; /* Add padding inside the div */
     border: 1px solid #ddd; /* Optional: add a border */
     background-color: #f9f9f9; /* Optional: add a background color */
 }
 
+@media (max-width: 480px) {
+    .container {
+        width: 95%; /* Increase the width percentage on very small screens */
+        height: 70%; /* Adjust the height percentage on very small screens */
+    }
+}
 
+#date {
+    margin-top: 20%;
+    border: 1px solid red
+}
 #total_spent_header_table {
     width: auto; /* Allow table to fit content */
     border-collapse: collapse;
     margin: 0 auto; /* Center the table horizontally */
-    border: 1px solid transparent; /* Set border to transparent */
-    background-color: transparent;
+    /*border: 1px solid transparent;  Set border to transparent 
+    background-color: transparent;*/
+    border: 1px solid red;
+
     
 }
 #total_spent_header_table th, #total_spent_header_table td {
     padding: 8px;
-    border: 1px solid transparent; /* Set border to transparent */
+    border: 1px solid red; /* Set border to transparent */
     background-color: transparent; /* Set cell background to transparent */
+
 }
 
 
@@ -69,9 +84,3 @@ body {
     z-index: 1000; /* Ensure it appears on top of other content */
 }
 
-@media (max-width: 480px) {
-    #centeredDiv {
-        width: 95%; /* Increase the width percentage on very small screens */
-        height: 70%; /* Adjust the height percentage on very small screens */
-    }
-}

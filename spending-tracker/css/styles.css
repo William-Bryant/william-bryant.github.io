@@ -105,7 +105,21 @@ body {
     right: 50%;
     transform: translateX(50%);
 
-            
-    
      
+}
+
+
+#error-box {
+    display: none; /* Hidden by default */
+    color: red;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: bold;
+    border: 1px solid red;
+    right: 50%;
+    transform: translateX(50%);
+    position: absolute;
+    z-index: 9999;
 }

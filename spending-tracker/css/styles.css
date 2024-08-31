@@ -29,7 +29,6 @@ body {
 
 #date_display {
     margin-top: 20%;
-    border: 1px solid red;
     width: 100%
 }
 
@@ -89,8 +88,10 @@ body {
 
 #date_container {
     padding-top: 2%;
-    width: auto
+    width: 100%;
 }
+
+
 
 #submit_btn {
     position: fixed; /* Keep the button fixed on the screen */

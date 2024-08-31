@@ -33,6 +33,9 @@ body {
     width: 100%
 }
 
+#spending_sum_display {
+    font-size: 12;
+}
 
 
 #spending_log_table {
@@ -67,19 +70,26 @@ body {
 
 #purchase_entry_page_content {
     padding-top: 50%; /* Puts in middle */
- 
+    font-size: xx-large;
 }
 
 #purchase_entry_header {
     font-weight: bold;
     margin-top: 10%;
 }
-#spending_sum_display {
-    font-size: 12;
+#dollar_sign{
+    font-size: medium;
+}
+
+
+#main_purchase_entry {
+    width: 90%;
+    padding-left: -40px;
 }
 
 #date_container {
     padding-top: 2%;
+    width: auto
 }
 
 #submit_btn {

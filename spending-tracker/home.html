@@ -11,22 +11,19 @@
     
     <main>
 
-        <div class="container" id="spending_log_container">
-            <button id="enter_purchase_button">Enter Purchase</button>
+        <div class="page" id="spending_log_page">
+            <button class='nav_button' id="log-to-entry-btn">Enter Purchase</button>
 
-            <p id="date"> XX/XX - XX/XX</p>
+            <p id="date_display"> XX/XX - XX/XX</p>
 
-            <table id="total_spent_header_table">
-                <thead>
-                    <th>Total Spent:</th>
-                    <th id="total_spent_sum"></th>
-                </thead>
-            </table>
+            <p><span id="total_spent_display_char">Total Spent: </span>
+                <span id="total_spent_display_num">150.12</span>
+            </p>
 
             <table id="spending_log_table">
                 <thead>
                     <tr>
-                        <th>Amount Spent</th>
+                        <th>Price</th>
                         <th>Description</th>
                         <th>Date</th>
                     </tr>
@@ -36,8 +33,21 @@
             </table>
         </div>
 
-        <div class="container" id="purchase_entry">
-        
+        <div class="page" id="purchase_entry_page">
+            <button class='nav_button' id="entry-to-log-btn">image here</button>
+            <p id="purchase_entry_header"> Purchase Entry</p>
+
+            <div class="input_container">
+                <span class="dollar-sign">$</span>
+                <input type="text" id="amount" placeholder="Enter amount">
+            </div>
+            <div class="input_container" id="date_container">
+                <!--<label for="date-entry">Date:</label> -->
+                <input type="date" id="date-entry">
+            </div>
+
+            <button id="submit_btn">Submit</button>
+
         </div>
 
 

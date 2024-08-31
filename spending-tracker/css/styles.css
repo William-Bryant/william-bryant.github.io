@@ -65,7 +65,10 @@ body {
     z-index: 1000; /* Ensure it appears on top of other content */
 }
 
-
+#purchase_entry_page_content {
+    padding-top: 50%; /* Puts in middle */
+ 
+}
 
 #purchase_entry_header {
     font-weight: bold;

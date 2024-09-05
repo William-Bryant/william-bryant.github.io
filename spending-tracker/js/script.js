@@ -1,16 +1,21 @@
 //* Local imports
-import DatabaseManager from './DatabaseManager.js';
-
+import DatabaseReader from './DatabaseReader.js';
+import DatabaseWriter from './DatabaseWriter.js'
+import DateManager from './DateManager.js'
 
 //* Class declarations
-const dbManager = new DatabaseManager();
+const dbReader = new DatabaseReader();
+const dbWriter = new DatabaseWriter();
+const dateManager = new DateManager();
 
 //* Document ready setup
 $(document).ready(function() {
-    set_default_date()
+    dateManager.set_default_date_for_input()
     $('#spending_log_page').hide();
-    dbManager.updateLocalDisplays()
-    
+    dbReader.updateLocalDisplays()
+    dateManager.get_date_range_for_current_week()
+
+
 });
 
 
@@ -22,22 +27,10 @@ function toggleContainers() {
     $('#purchase_entry_page').toggle();
 }
 
-function set_default_date() {
-    const input = document.getElementById('date-entry');
-    const today = new Date();
-    
-    // Format the date as YYYY-MM-DD
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-    const day = String(today.getDate()).padStart(2, '0');
-    
-    const formattedDate = `${year}-${month}-${day}`;
-    input.value = formattedDate;
-}
 
 function handleSubmit() {
-    dbManager.processPurchaseEntry()
-    dbManager.updateLocalDisplays()
+    dbWriter.processPurchaseEntry()
+    dbReader.updateLocalDisplays()//TODO: This shouldn't be called unless successful entry. Put this in processPurchaseEntry
     toggleContainers()
 }
 

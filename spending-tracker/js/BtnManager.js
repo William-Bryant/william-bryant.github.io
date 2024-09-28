@@ -17,6 +17,7 @@ class BtnManager {
         $('#purchase_entry_page').hide();
         $('#admin_page').hide()
         $('#spending_log_table_deleted_div').hide()
+        dbReader.updateLocalDisplays()
 
     }
 
@@ -30,6 +31,8 @@ class BtnManager {
     handleSubmit() {
         dbWriter.processPurchaseEntry()
         dbReader.updateLocalDisplays()//TODO: This shouldn't be called unless successful entry. Put this in processPurchaseEntry
+        $('#spending_log_page').show()
+        $('#purchase_entry_page').hide();
         //toggleContainers()
     }
 

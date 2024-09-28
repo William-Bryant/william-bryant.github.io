@@ -5,6 +5,10 @@ import DatabaseWriter from './DatabaseWriter.js'
 const dbReader = new DatabaseReader();
 const dbWriter = new DatabaseWriter();
 class BtnManager {
+    constructor(){
+        this.valid_user_entry = false
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
     
     switchToPurchaseEntryPage() {
         $('#purchase_entry_page').show();
@@ -28,12 +32,17 @@ class BtnManager {
         
     }
 
-    handleSubmit() {
-        dbWriter.processPurchaseEntry()
-        dbReader.updateLocalDisplays()//TODO: This shouldn't be called unless successful entry. Put this in processPurchaseEntry
-        $('#spending_log_page').show()
-        $('#purchase_entry_page').hide();
-        //toggleContainers()
+    async handleSubmit() {
+        //* Processes the entry. If valid, this.valid_user_entry will be true
+        this.valid_user_entry = await dbWriter.processPurchaseEntry();
+        
+        if (this.valid_user_entry) {
+            dbReader.updateLocalDisplays(); // Only call this on successful entry
+            $('#spending_log_page').show();
+            $('#purchase_entry_page').hide();
+        } else {
+            console.log('Submission failed, check error box for details.');
+        }
     }
 
     goToDeleteRecords(){
@@ -53,6 +62,14 @@ class BtnManager {
         $('#spending_log_table_deleted_div').hide()
         $('#admin_home').show()
     }
+
+    _reset_user_view(){
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
+        //* Reset the zoom level by modifying the viewport meta tag
+        var viewport = $("meta[name=viewport]");
+        viewport.attr("content", "width=device-width, initial-scale=1.0");
+    }
+
 }
 
 export default BtnManager

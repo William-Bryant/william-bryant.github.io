@@ -12,23 +12,23 @@ class DatabaseWriter {
     }
 
     //! WRITES
-    processPurchaseEntry() {
+    async processPurchaseEntry() {
         //* Gather the inputs provided by the user
         const mainPurchaseEntry = $('#main_purchase_entry').val();
         const dateEntry = $('#date-entry').val();
-
-        if (this._validateTransactionInput(mainPurchaseEntry) == true){
+    
+        if (this._validateTransactionInput(mainPurchaseEntry)) {
             //* Split the string into dollarValue and description
             const { dollarValue, description } = this._split_input_into_dollar_and_desc(mainPurchaseEntry);
-
-
+    
             //* Add transaction to database
-            this._writeToDatabase( dollarValue, description, dateEntry);
-
-            $('#error-box').hide()
+            await this._writeToDatabase(dollarValue, description, dateEntry);
+            
+            $('#error-box').hide();
+            return true;  // Return true if entry is successful
+        } else {
+            return false; // Return false if validation fails
         }
-
-        
     }
 
     _validateTransactionInput(inputStr){

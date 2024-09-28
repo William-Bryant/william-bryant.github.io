@@ -37,9 +37,10 @@ class BtnManager {
         this.valid_user_entry = await dbWriter.processPurchaseEntry();
         
         if (this.valid_user_entry) {
-            dbReader.updateLocalDisplays(); // Only call this on successful entry
+            dbReader.updateLocalDisplays(); 
             $('#spending_log_page').show();
             $('#purchase_entry_page').hide();
+            this._reset_user_view()
         } else {
             console.log('Submission failed, check error box for details.');
         }
@@ -64,7 +65,7 @@ class BtnManager {
     }
 
     _reset_user_view(){
-        $('html, body').animate({ scrollTop: 0 }, 'slow');
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
         //* Reset the zoom level by modifying the viewport meta tag
         var viewport = $("meta[name=viewport]");
         viewport.attr("content", "width=device-width, initial-scale=1.0");

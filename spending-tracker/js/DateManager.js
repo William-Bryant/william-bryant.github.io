@@ -85,6 +85,7 @@ class DateManager {
         // Reset time to 00:00:00 for accurate comparison
         lastWednesday.setHours(0, 0, 0, 0);
 
+
         return lastWednesday;
     }
 

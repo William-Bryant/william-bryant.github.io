@@ -23,7 +23,7 @@ $(document).ready(function() {
     //$('#admin_page').hide();
 
 
-    dbReader._fill_deletion_table()
+    
     $('#spending_log_table_deleted_div').hide()
 
 
@@ -42,14 +42,14 @@ function handleDeleteRequest(){
     const transactionKey = $(this).attr('transaction-key')
 
     dbWriter._deleteRecordFromDatabase(transactionKey)
-    dbReader._fill_deletion_table()
+    dbReader._update_deletion_table()
     
 }
 
 
 
 // Event bindings
-$('go_to_purchase_entry_btn').click(btnManager.switchToPurchaseEntryPage);
+$('#go_to_purchase_entry_btn').click(btnManager.switchToPurchaseEntryPage);
 $('#go_to_spending_log_btn').click(btnManager.switchToSpendingLogPage);
 $('#submit_btn').click(btnManager.handleSubmit)
 $('#go_to_setting_page_btn').click(btnManager.switchToSettingsPage)

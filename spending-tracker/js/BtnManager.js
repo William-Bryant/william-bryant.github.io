@@ -16,6 +16,8 @@ class BtnManager {
         $('#spending_log_page').show()
         $('#purchase_entry_page').hide();
         $('#admin_page').hide()
+        $('#spending_log_table_deleted_div').hide()
+
     }
 
     switchToSettingsPage() {
@@ -41,7 +43,7 @@ class BtnManager {
         const transactionKey = $(this).attr('transaction-key')
     
         dbWriter._deleteRecordFromDatabase(transactionKey)
-        dbReader._fill_deletion_table()
+        dbReader._update_deletion_table()
         
     }
     closeDeleteTable() {

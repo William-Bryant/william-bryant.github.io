@@ -59,7 +59,7 @@ class DatabaseWriter {
         }
 
         if (isValid == false) {
-            $('#error-box').text(message).fadeIn();
+            $('#error-box').text(message).fadeIn().delay(300).fadeOut();
             return false
         }
 

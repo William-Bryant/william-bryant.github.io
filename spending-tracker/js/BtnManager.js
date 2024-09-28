@@ -65,10 +65,9 @@ class BtnManager {
     }
 
     _reset_user_view(){
-        $('html, body').animate({ scrollTop: 0 }, 'fast');
+      //  $('html, body').animate({ scrollTop: 0 }, 'fast');
         //* Reset the zoom level by modifying the viewport meta tag
-        var viewport = $("meta[name=viewport]");
-        viewport.attr("content", "width=device-width, initial-scale=1.0");
+        $("meta[name=viewport]").attr("content", "width=device-width, initial-scale=1.0");
     }
 
 }

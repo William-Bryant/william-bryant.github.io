@@ -12,9 +12,14 @@
     <main>
 
         <div class="page" id="spending_log_page">
-            <button class='nav_button' id="log-to-entry-btn">Enter Purchase</button>
 
-            <p id="date_display"> X</p>
+            <div id="button_container">
+                <button class='nav_button' id="go_to_purchase_entry_btn">Enter Purchase</button>
+                <button class='nav_button' id="go_to_setting_page_btn">Settings</button>
+            </div>
+            <div id="date_display">
+            <span id="cycle_start">X</span> - <span id="cycle_end"></span>
+            </div>
 
             <p><span id="total_spent_display_char">Total Spent: </span>
                 <span id="total_spent_display_num"></span>
@@ -35,7 +40,7 @@
 
         <div class="page" id="purchase_entry_page">
             <div id = "purchase_entry_page_content">
-                <button class='nav_button' id="entry-to-log-btn">image here</button>
+                <button class='nav_button' id="go_to_spending_log_btn">image here</button>
                 <p id="purchase_entry_header"> Purchase Entry</p>
                
                 <div class="input_container">
@@ -50,6 +55,24 @@
              </div>
         </div>
 
+        <div class="page" id="admin_page">
+            <button class='nav_button' id="close_admin_page_btn">Return</button>
+
+            <div id="admin_home">
+            <button id="go_to_delete_records_btn">Delete Records</button>
+            </div>
+
+            <div id="spending_log_table_deleted_div">
+                <button  id="close_delete_table_btn">Back</button>
+
+
+                <table id="spending_log_table_deleted">
+                    <thead><td>Recent Transactions:</td></thead>
+                    <tbody><td></td></tbody>
+                </table>
+            </div>
+            
+        </div>
         <div id="error-box"></div>
 
     </main>

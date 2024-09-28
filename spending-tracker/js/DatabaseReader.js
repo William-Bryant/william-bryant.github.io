@@ -49,18 +49,18 @@ class DatabaseReader {
     }
 
     _updateLocalTransactionTable(data) {
-        const tableBody = $('#spending_log_table tbody'); // Select the table body using jQuery
+        const tableBody = $('#spending_log_table tbody'); 
         
-        tableBody.empty(); // Clear existing rows
+        tableBody.empty(); 
 
         data.forEach((item) => {
-            // Create a new row and cells using jQuery
+            
             const $row = $('<tr></tr>');
             $row.append(`<td>${item.dollarValue}</td>`);
             $row.append(`<td>${item.description}</td>`);
             $row.append(`<td>${item.date}</td>`);
             
-            // Append the new row to the table body
+            
             tableBody.append($row);
         });
     }
@@ -71,11 +71,50 @@ class DatabaseReader {
             const dollarValue = parseFloat(item.dollarValue);
             return sum + (!isNaN(dollarValue) ? dollarValue : 0);
         }, 0);
-        
+
         // Display the total in the HTML element
-        $('#total_spent_display_char').text(total.toFixed(2)); // Format total to 2 decimal places
+        $('#total_spent_display_num').text(total.toFixed(2)); // Format total to 2 decimal places
     }
 
+    
+   async _fill_deletion_table(){
+
+    const snapshot = await get(this.transactionsRef); 
+
+    //* Clear existing rows
+    const tableBody = $('#spending_log_table_deleted tbody');
+    tableBody.empty();
+
+    if ( !snapshot.exists()) {
+        tableBody.append('<tr><td colspan="3" style="font-style: italic;">No Data</td></tr>');
+        return;
+    }
+
+    snapshot.forEach((childSnapshot) => {
+        const firebaseKey = childSnapshot.key; //* Get Firebase-generated key
+        const transaction = childSnapshot.val();
+
+        //* Destructure transaction data. implicit assigning of vars based on matching names
+        const { dollarValue, description, date } = transaction;
+
+        //* Create a new row with a delete button
+        const $row = $('<tr class="dlt_btn_row"></tr>');
+        const $cell = $('<td></td>'); 
+        
+        //* Create a delete button with data attributes for firebase key and record ID
+        $cell.append(`
+            <button class='delete_btn' transaction-key='${firebaseKey}'>
+                $${dollarValue} ${description}, ${date}
+            </button>
+        `);
+        
+        $row.append($cell);
+        
+        //* Append the new row to the table body
+        tableBody.append($row);
+    });
+   }
+    
 }
 
 export default DatabaseReader

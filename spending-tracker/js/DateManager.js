@@ -17,6 +17,7 @@ class DateManager {
 
         //* Get the month (+1 due to 0 index) Pad with 0s until len is 2
         const month = String(date.getMonth() + 1).padStart(2, '0');
+        
 
         //* Get the day. Pad with 0s until len is 2
         const day = String(date.getDate()).padStart(2, '0');
@@ -32,14 +33,27 @@ class DateManager {
         //*
 
         //* Get the month (+1 due to 0 index) Pad with 0s until len is 2
-        const month = String(date.getMonth() + 1);
+        //const month = String(date.getMonth() + 1);
+        const month = date.toLocaleString('default', { month: 'short' });
 
         //* Get the day. Pad with 0s until len is 2
         const day = String(date.getDate());
         
-        const formattedDate = `${month}/${day}`;
+        const formattedDate = `${month}. ${day}${this._get_day_suffix(day)}`;
 
         return formattedDate
+    }
+
+    _get_day_suffix(day) {
+        if (day >= 11 && day <= 13) {
+            return 'th'; // Special case for 11, 12, 13
+        }
+        switch (day % 10) {
+            case 1: return 'st';
+            case 2: return 'nd';
+            case 3: return 'rd';
+            default: return 'th';
+        }
     }
 
     get_date_range_for_current_week() {
@@ -55,8 +69,8 @@ class DateManager {
 
         console.log(formattedPayCycleEnd)
 
-        const content = `${formattedPayCycleStart} - ${formattedPayCycleEnd}`;
-        $('#date_display').html(content);
+        $('#cycle_start').html(formattedPayCycleStart)
+        $('#cycle_end').html(formattedPayCycleEnd)
 }
 
     _get_last_wednesday() {

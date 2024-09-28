@@ -1,4 +1,4 @@
-import { ref, push} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import { ref, push, remove} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 //* ref: creates a reference to a specific path in the database. 'transactions', i think for this one
 //* push: lets you add to database
 //* get: used to fetch data, it returns a promise that resolves to a DataSnapshot object
@@ -21,8 +21,9 @@ class DatabaseWriter {
             //* Split the string into dollarValue and description
             const { dollarValue, description } = this._split_input_into_dollar_and_desc(mainPurchaseEntry);
 
+
             //* Add transaction to database
-            this._writeToDatabase(dollarValue, description, dateEntry);
+            this._writeToDatabase( dollarValue, description, dateEntry);
 
             $('#error-box').hide()
         }
@@ -98,7 +99,7 @@ class DatabaseWriter {
     }
 
     async _writeToDatabase(dollarValue, description, date) { //async so you can use await
-        const record_for_entry = { dollarValue, description, date };
+        const record_for_entry = {dollarValue, description, date };
       
         try {
           await push(this.transactionsRef, record_for_entry); // Wait for data to be pushed
@@ -108,7 +109,17 @@ class DatabaseWriter {
         }
       }
 
-
+    async _deleteRecordFromDatabase(transactionKey){
+        const recordRef = ref(db, `transactions/${transactionKey}`);
+        console.log(`recordRef: ${recordRef}`)
+        return remove(recordRef)
+            .then(() => {
+                console.log(`Record with ID ${transactionKey} deleted successfully.`);
+            })
+            .catch((error) => {
+                console.error(`Error deleting record: ${error}`);
+            });
+    }
 
 }
 

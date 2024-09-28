@@ -13,14 +13,14 @@ const btnManager = new BtnManager();
 //* Document ready setup
 $(document).ready(function() {
     dateManager.set_default_date_for_input()
-    $('#spending_log_page').hide();
-    
+    //$('#spending_log_page').show();
+    $('#purchase_entry_page').show();
     dbReader.updateLocalDisplays()
     dateManager.get_date_range_for_current_week()
 
     //* TEmps
-    $('#purchase_entry_page').hide();
-    //$('#admin_page').hide();
+    //$('#purchase_entry_page').hide();
+    
 
 
     

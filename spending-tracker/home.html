@@ -18,12 +18,28 @@
                 <button class='nav_button' id="go_to_setting_page_btn">Settings</button>
             </div>
             <div id="date_display">
-            <span id="cycle_start">X</span> - <span id="cycle_end"></span>
+                <table id="date_display_table">
+                    <thead>
+                        <tr>
+                            <td>
+                                <button class='date_filter_btn' id="see_prev_weeks_data_btn">&lt;</button>  
+                            </td>
+                            <td id="date_display_dates">
+                                <span id="cycle_start"></span> - <span id="cycle_end"></span>
+                            </td>
+                            <td>
+                                <button class='date_filter_btn' id="see_curr_weeks_data_btn">&gt;</button>  
+                            </td>
+                        </tr>
+                    </thead>
+
+                </table>
             </div>
 
             <p><span id="total_spent_display_char">Total Spent: </span>
                 <span id="total_spent_display_num"></span>
             </p>
+            
 
             <table id="spending_log_table">
                 <thead>

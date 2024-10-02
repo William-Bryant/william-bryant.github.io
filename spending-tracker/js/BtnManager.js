@@ -64,13 +64,23 @@ class BtnManager {
         $('#admin_home').show()
     }
 
+    seePrevWeekData(){
+        dbReader.updateLocalDisplaysPreviousWeek()
+        $('#see_curr_weeks_data_btn').css('opacity', 100)
+        $('#see_prev_weeks_data_btn').css('opacity', 0)
+    }
+    seeCurrWeekData(){
+        dbReader.updateLocalDisplays()
+        $('#see_prev_weeks_data_btn').css('opacity', 100)
+    }
     _reset_user_view(){
       //  $('html, body').animate({ scrollTop: 0 }, 'fast');
         //* Reset the zoom level by modifying the viewport meta tag
         //$("meta[name=viewport]").setAttr("content", "width=device-width, initial-scale=1.0");
         const viewportmeta = document.querySelector('meta[name=viewport]');
-viewportmeta.setAttribute('content', "initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0")
+        viewportmeta.setAttribute('content', "initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0")
     }
+
 
 }
 

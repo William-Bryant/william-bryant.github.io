@@ -27,11 +27,24 @@ body {
     background-color: #f9f9f9; /* Optional: add a background color */
 }
 
-
-#date_display {
-    margin-top: 20%;
-    width: 100%
+#date_display_table{
+    border: 1px red;
+    display: flex;
+    justify-content: center; /* Centers the entire content horizontally */
+    /*align-items: center; /* Aligns items vertically */
+    position: relative;
 }
+#date_display {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically, if needed */
+    margin-top: 20%;
+}
+
+#see_curr_weeks_data_btn{
+   opacity: 0;
+}
+
 
 #spending_sum_display {
     font-size: 12;
@@ -114,6 +127,7 @@ body {
 
      
 }
+
 
 #spending_log_table_deleted {
     position: absolute;

@@ -52,6 +52,10 @@ function handleDeleteRequest(){
 $('#go_to_purchase_entry_btn').click(btnManager.switchToPurchaseEntryPage);
 $('#go_to_spending_log_btn').click(btnManager.switchToSpendingLogPage);
 $('#submit_btn').click(btnManager.handleSubmit)
+
+$('#see_prev_weeks_data_btn').click(btnManager.seePrevWeekData)
+$('#see_curr_weeks_data_btn').click(btnManager.seeCurrWeekData)
+
 $('#go_to_setting_page_btn').click(btnManager.switchToSettingsPage)
 $('#close_admin_page_btn').click(btnManager.switchToSpendingLogPage)
 $('#go_to_delete_records_btn').click(btnManager.goToDeleteRecords)

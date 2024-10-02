@@ -67,7 +67,7 @@ class DateManager {
         let formattedPayCycleStart = this._format_date_mmdd(payCycleStart)
         let formattedPayCycleEnd = this._format_date_mmdd(payCycleEnd)
 
-        console.log(formattedPayCycleEnd)
+        //console.log(formattedPayCycleEnd)
 
         $('#cycle_start').html(formattedPayCycleStart)
         $('#cycle_end').html(formattedPayCycleEnd)

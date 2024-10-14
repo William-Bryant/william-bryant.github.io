@@ -6,6 +6,7 @@
     <title>Spending Tracker</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.js"></script>
 </head>
 <body>
     
@@ -22,13 +23,13 @@
                     <thead>
                         <tr>
                             <td>
-                                <button class='date_filter_btn' id="see_prev_weeks_data_btn">&lt;</button>  
+                                <button class='date_filter_btn' id="filter_date_backwards_forward_btn">&lt;</button>  
                             </td>
                             <td id="date_display_dates">
                                 <span id="cycle_start"></span> - <span id="cycle_end"></span>
                             </td>
                             <td>
-                                <button class='date_filter_btn' id="see_curr_weeks_data_btn">&gt;</button>  
+                                <button class='date_filter_btn' id="filter_date_forwards_btn">&gt;</button>  
                             </td>
                         </tr>
                     </thead>

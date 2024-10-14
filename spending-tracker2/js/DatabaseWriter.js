@@ -16,7 +16,7 @@ class DatabaseWriter {
         //* Gather the inputs provided by the user
         const mainPurchaseEntry = $('#main_purchase_entry').val();
         const dateEntry = $('#date-entry').val();
-    
+        console.log(typeof dateEntry)
         if (this._validateTransactionInput(mainPurchaseEntry)) {
             //* Split the string into dollarValue and description
             const { dollarValue, description } = this._split_input_into_dollar_and_desc(mainPurchaseEntry);

@@ -1,0 +1,13 @@
+#admin_home{
+    margin-top: 50%;
+    border: 1px red;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+}
+
+
+#go_to_delete_records_btn{
+    background-color: rgb(0, 204, 255);
+    order: 1px solid black; 
+    border-radius: 5px;
+}

@@ -1,18 +1,14 @@
 //* Local imports
-import DatabaseReader from './DatabaseReader.js';
-import DatabaseReader2 from './DatabaseReaderSQL.js';
-import DatabaseWriter from './DatabaseWriter.js'
-import DatabaseWriter2 from './DatabaseWriterSQL.js';
+import DatabaseReader2 from './DatabaseReader.js';
+import DatabaseWriter2 from './DatabaseWriter.js';
 
 //* Class declarations
-const dbReader = new DatabaseReader();
-const dbReader2 = new DatabaseReader2()
-const dbWriter = new DatabaseWriter();
-const dbWriter2 = new DatabaseWriter2()
+const dbReader = new DatabaseReader2()
+const dbWriter = new DatabaseWriter2()
 
 class BtnManager {
     constructor(){
-        this.valid_user_entry = false
+        this.was_insert_successful = false
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
@@ -21,6 +17,7 @@ class BtnManager {
         $('#spending_log_page').hide()
         $('#admin_page').hide()
         $('#main_purchase_entry').val('')
+        dbReader.resetCurrentPeriod()
     }
 
     switchToSpendingLogPage() {
@@ -29,29 +26,33 @@ class BtnManager {
         $('#admin_page').hide()
         $('#spending_log_table_deleted_div').hide()
         //dbReader.updateLocalDisplays()
-        dbReader2.updateLocalDisplays()
-
+        dbReader.updateLocalDisplays()
+        
     }
 
     switchToSettingsPage() {
         $('#admin_page').show()
         $('#spending_log_page').hide()
         $('#purchase_entry_page').hide();
-        
+        dbReader.resetCurrentPeriod()
+    }
+
+    goToDeleteRecords(){
+        $('#spending_log_table_deleted_div').show()
+        $('#admin_home').hide()
+    }
+    
+    closeDeleteTable() {
+        $('#spending_log_table_deleted_div').hide()
+        $('#admin_home').show()
     }
 
     async handleSubmit() {
-        //* Processes the entry. If valid, this.valid_user_entry will be true
-        //!this.valid_user_entry = await dbWriter.processPurchaseEntry();
-        this.valid_user_entry = await dbWriter2.processPurchaseEntry()
-        
-        
+        //* Processes the entry. If valid, this.was_insert_successful will be true
+        this.was_insert_successful = await dbWriter.processPurchaseEntry()
 
-        if (this.valid_user_entry) {
-            //dbReader.updateLocalDisplays();
-            console.log('updating!')
-
-            dbReader2.updateLocalDisplays(); 
+        if (this.was_insert_successful) {
+            dbReader.updateLocalDisplays(); 
             $('#spending_log_page').show();
             $('#purchase_entry_page').hide();
             this._reset_user_view()
@@ -60,38 +61,15 @@ class BtnManager {
         }
     }
 
-    }
-
-    goToDeleteRecords(){
-        $('#spending_log_table_deleted_div').show()
-        $('#admin_home').hide()
-    }
-
-    handleDeleteRequest(){
-
-        const transactionKey = $(this).attr('transaction-key')
-    
-        dbWriter._deleteRecordFromDatabase(transactionKey)
-        dbReader._update_deletion_table()
-        
-    }
-    closeDeleteTable() {
-        $('#spending_log_table_deleted_div').hide()
-        $('#admin_home').show()
-    }
 
     seePrevWeekData(){
-        //dbReader.updateLocalDisplaysPreviousWeek()
-        dbReader2._move_current_period('backwards')
-        dbReader2.updateLocalDisplays()
+        dbReader.moveCurrentPeriod('backwards')
+        dbReader.updateLocalDisplays()
         $('#filter_date_forwards_btn').css('opacity', 100)
-        //$('#see_prev_weeks_data_btn').css('opacity', 0)
     }
     seeCurrWeekData(){
-        //dbReader.updateLocalDisplays()
-        dbReader2._move_current_period('forwards')
-        dbReader2.updateLocalDisplays()
-        //$('#see_prev_weeks_data_btn').css('opacity', 100)
+        dbReader.moveCurrentPeriod('forwards')
+        dbReader.updateLocalDisplays()
     }
 
 

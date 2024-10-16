@@ -1,0 +1,25 @@
+#spending_log_table_deleted {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 600px;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.dlt_btn_row {
+    text-align: center; /* Center-aligns content within the table cell */
+}
+
+.delete_btn {
+    display: inline-block; /* Ensures the button takes up only as much width as it needs */
+    margin-bottom: 7px;
+    border: 1px solid black; 
+    border-radius: 3px;;
+    color: white;
+    background-color: rgb(0, 204, 255); /* Fixed comment here */
+    padding: 5px 10px;
+    cursor: pointer;
+}

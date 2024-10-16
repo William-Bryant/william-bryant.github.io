@@ -1,28 +1,22 @@
 
-
-
 //* Local imports
-import DatabaseReader from './DatabaseReader.js';
-import DatabaseReader2 from './DatabaseReaderSQL.js'
-import DatabaseWriter from './DatabaseWriter.js'
-import DatabaseWriter2 from './DatabaseWriterSQL.js';
+import DatabaseReader from './DatabaseReader.js'
+import DatabaseWriter from './DatabaseWriter.js';
 import DateManager from './DateManager.js'
 import BtnManager from './BtnManager.js'
 
 //* Class declarations
-const dbReader = new DatabaseReader();
-const dbReader2 = new DatabaseReader2()
-const dbWriter = new DatabaseWriter();
-const dbWriter2 = new DatabaseWriter2()
+const dbReader = new DatabaseReader()
+const dbWriter = new DatabaseWriter()
 const dateManager = new DateManager();
 const btnManager = new BtnManager();
 
 //* Document ready setup
 $(document).ready(function() {
-    dateManager.set_default_date_for_input()
+    dateManager.setDefaultDateForTransactionInput()
     //$('#spending_log_page').show();
     $('#purchase_entry_page').show();
-    dbReader2.updateLocalDisplays()
+    dbReader.updateLocalDisplays()
     //dateManager.get_date_range_for_current_week()
 
     //* TEmps
@@ -31,9 +25,9 @@ $(document).ready(function() {
 
 
 
-    //dbReader2.updateLocalDisplays()
-    //dbReader2._move_current_period('backwards')
-    //dbReader2.updateLocalDisplays()
+    //dbReader.updateLocalDisplays()
+    //dbReader.moveCurrentPeriod('backwards')
+    //dbReader.updateLocalDisplays()
 
     $('#spending_log_table_deleted_div').hide()
 
@@ -48,12 +42,12 @@ $(document).on('click', '.delete_btn', handleDeleteRequest);
 
 //* Methods
 
-function handleDeleteRequest(){
+async function handleDeleteRequest(){
 
-    const transactionKey = $(this).attr('transaction-key')
+    const transactionId = $(this).attr('transaction-id')
 
-    dbWriter._deleteRecordFromDatabase(transactionKey)
-    dbReader._update_deletion_table()
+    await dbWriter.deleteRecordFromDatabase(transactionId)
+    dbReader.updateLocalDisplays()
     
 }
 

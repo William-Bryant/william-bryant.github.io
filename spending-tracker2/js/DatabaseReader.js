@@ -1,191 +1,177 @@
-import { ref, get } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-//* ref: creates a reference to a specific path in the database. 'transactions', i think for this one
-//* get: used to fetch data, it returns a promise that resolves to a DataSnapshot object
-//*     containing the data at the reference
-import { db } from './firebaseSetup.js';
-
 //* Local imports
 import DateManager from './DateManager.js'
 
 //* Class declarations
 const dateManager = new DateManager();
 
-
-class DatabaseReader {
+class DatabaseReader2 {
     constructor() {
-        this.transactionsRef = ref(db, 'transactions')
-    }
+        //* Declare url and key
+        const SUPABASE_URL = 'https://gkzfslszwxcncnoiuksq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdremZzbHN6d3hjbmNub2l1a3NxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg4NTM3NjIsImV4cCI6MjA0NDQyOTc2Mn0.dxCStAG5cDqENDHMKLdOkCeqTnDTjN3k-tz_10EJ6b8';
+
+        //* Create a Supabase client
+        this.supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        //? Hard set based on preference
+        this.payDay = 'Wednesday'
+        this.frequency = 'weekly'
+
+        //* Unpack current pay period dates
+        const { currentPeriodStart, currentPeriodEnd } = dateManager.determinePayPeriodDates(this.payDay, this.frequency);
+        
+        //* These get defaulted to the current at start of program. 
+        //* Can be globally changed in moveCurrentPeriod()
+        this.currentPeriodStart = currentPeriodStart;
+        this.currentPeriodEnd = currentPeriodEnd;
+       }
+
     async updateLocalDisplays() {
         try {
-            //* Read data from the database. 'data' is an array
-            let data = await this._readDatabase(); // Await the promise to get the data;
-                //console.log(data)
-            //* Filter data to only get this week's data
-            data = this._filter_data_based_on_date(data,'currentWeek')
-                //console.log(data)
-            //* Update the purchase log
-            this._updateLocalTransactionTable(data);
-            
-            //* Update the sum display
-            this._updateLocalSumDisplay(data);
 
+            //* Format the dates for db use
+            let periodStartDate = dateManager.formatDateYYYYMMDD(this.currentPeriodStart)
+            let periodEndDate = dateManager.formatDateYYYYMMDD(this.currentPeriodEnd)
+
+            //* Grab data from database
+            let data = await this._fetchAllTransactionsInPeriod(periodStartDate, periodEndDate)
+
+            //* Update transaction table
+            this._updateLocalTransactionTable(data)
             
-            this._update_deletion_table()
+            //* Update date header
+            this._updateDateHeaderDisplay(this.currentPeriodStart, this.currentPeriodEnd)
+
+            //* Update sum display
+            this._updateSumDisplay(data)
+
+            //* Update delete table
+            this._updateDeleteTable(data)
+            //* Check if date filter btns should be displayed
+            dateManager.checkWhichDateFilterBtnsToShow(this.currentPeriodStart, this.currentPeriodEnd)
         } catch (error) {
             console.error('Error loading table and updating total:', error);
         }
     }
 
-    async updateLocalDisplaysPreviousWeek() {
-        try {
-            //* Read data from the database. 'data' is an array
-            let data = await this._readDatabase(); // Await the promise to get the data;
-                //console.log(data)
-            //* Filter data to only get previous week's data
-            data = this._filter_data_based_on_date(data, 'previousWeek')
-                //console.log(data)
-            //* Update the purchase log
-            this._updateLocalTransactionTable(data);
-            
-            //* Update the sum display
-            this._updateLocalSumDisplay(data);
-
-        } catch (error) {
-            console.error('Error loading table and updating total:', error);
+    async _fetchAllTransactionsInPeriod(periodStartDate, periodEndDate) {
+        //* Reads from databae all transactions that have dates within the desired period
+        
+        //console.log('fetching transactions in range: '+periodStartDate+' - ',periodEndDate)
+        const { data, error } = await this.supabase
+            .from('Transactions')
+            .select('*')
+            .gte('Date',periodStartDate)
+            .lte('Date',periodEndDate)
+            .order('Date', { ascending: true })
+            .order('Insert_datetime', { ascending: true });
+        if (error) {
+            console.error('Error fetching transactions:', error);
+        } else {
+            //console.log('All Transactions:', data);
+            return data
         }
     }
 
-    async _readDatabase() {
-        try {
-            const snapshot = await get(this.transactionsRef);
-            
-            if (!snapshot.exists()) {
-                console.log('No transactions found.');
-                return [];
-            }
-            
-            // Collect data into an array
-            const data = [];
-            snapshot.forEach((childSnapshot) => {
-                data.push(childSnapshot.val());
-            });
-            
-            return data;
-        } catch (error) {
-            console.error('Error in _readDataBase:', error);
-            return [];
-        }
+    _updateDateHeaderDisplay(currentPeriodStart,currentPeriodEnd){
+        //* This will update the date display based on what period is being looked at
+
+        currentPeriodStart = dateManager.formatDateForHeaderDisplay(currentPeriodStart)
+        currentPeriodEnd = dateManager.formatDateForHeaderDisplay(currentPeriodEnd)
+
+        $('#cycle_start').html(currentPeriodStart)
+        $('#cycle_end').html(currentPeriodEnd)
     }
 
-    _filter_data_based_on_date(data, argument) {
-        let daysBehind = 0;
-        if (argument == 'previousWeek') {
-            daysBehind = 7;
+    _updateSumDisplay(data){
+        //* This will update the sum display
+
+        let total = 0
+        for (let i = 0; i < data.length; i++) {
+            total += data[i]['Price'] || 0;  //* Add price if it exists, otherwise add 0
         }
-    
-        // Get the last Wednesday's date
-        const lastWednesday = dateManager._get_last_wednesday();
-    
-        // Subtract 1 day from lastWednesday
-        const adjustedWednesday = new Date(lastWednesday);
-        adjustedWednesday.setDate(lastWednesday.getDate() - 1);
-    
-        // Subtract daysBehind from adjustedWednesday, this allows for prev week to be pulled
-        adjustedWednesday.setDate(adjustedWednesday.getDate() - daysBehind);
-        
-        // Calculate the date 7 days after adjustedWednesday
-        const adjustedWednesdayPlus7 = new Date(adjustedWednesday);
-        adjustedWednesdayPlus7.setDate(adjustedWednesday.getDate() + 7);
-        
-        // Filter the data to keep only items from adjustedWednesday to adjustedWednesday + 7
-        let current_weeks_data = data.filter(item => {
-            const itemDate = new Date(item.date);
-            return itemDate >= adjustedWednesday && itemDate < adjustedWednesdayPlus7;
-        });
-        
-        return current_weeks_data;
+        $('#total_spent_display_num').text(total.toFixed(2)); 
     }
+
     _updateLocalTransactionTable(data) {
+        //* This will update the transaction table with passed in data
+
         const tableBody = $('#spending_log_table tbody'); 
-        
         tableBody.empty(); 
 
-        data.forEach((item) => {
-            
-
+        //* Iterate through each item in the data array
+        data.forEach(item => {
             const $row = $('<tr></tr>');
-            $row.append(`<td>${item.dollarValue}</td>`);
-            $row.append(`<td>${item.description}</td>`);
-            $row.append(`<td>${item.date}</td>`);
-            
-            
-            tableBody.append($row);
+            $row.append(`<td>${item['Price']}</td>`); 
+            $row.append(`<td>${item['Description']}</td>`);
+            $row.append(`<td>${item['Date']}</td>`); //* Ensure the date is in the correct format
+
+            tableBody.append($row); //* Append the new row to the table body
         });
     }
 
-    _updateLocalSumDisplay(data) {
-        // Calculate total sum
-        const total = data.reduce((sum, item) => {
-            const dollarValue = parseFloat(item.dollarValue);
-            return sum + (!isNaN(dollarValue) ? dollarValue : 0);
-        }, 0);
+    async moveCurrentPeriod(direction){
+        //* This adjusts the date range that is being looked at in the class instance
+        //* Adjusts by entire pay periods
+        let range_length = null
 
-        // Display the total in the HTML element
-        $('#total_spent_display_num').text(total.toFixed(2)); // Format total to 2 decimal places
-    }
-
-    
-   async _update_deletion_table(){
-
-   const snapshot = await get(this.transactionsRef); 
-
-    //* Clear existing rows
-    const tableBody = $('#spending_log_table_deleted tbody');
-    tableBody.empty();
-    //console.log(snapshot)
-    if ( !snapshot.exists()) {
-        tableBody.append('<tr><td colspan="3" style="font-style: italic;">No Data</td></tr>');
-        return;
-    }
-    
-    snapshot.forEach((childSnapshot) => {
-        const firebaseKey = childSnapshot.key; //* Get Firebase-generated key
-        const transaction = childSnapshot.val();
-
-        let date_of_transaction = new Date(childSnapshot.val().date)
-
-        //* if transaction happened in current week cycle
-        // Subtract 1 day from lastWednesday, because for some reason a >= doesn't work
-        const lastWednesday = dateManager._get_last_wednesday();
-        const adjustedWednesday = new Date(dateManager._get_last_wednesday());
-        adjustedWednesday.setDate(lastWednesday.getDate() - 1);
-
-        if (date_of_transaction > adjustedWednesday){
-            //* Destructure transaction data. implicit assigning of vars based on matching names
-            const { dollarValue, description, date } = transaction;
-
-            //* Create a new row with a delete button
-            const $row = $('<tr class="dlt_btn_row"></tr>');
-            const $cell = $('<td></td>'); 
-            
-            //* Create a delete button with data attributes for firebase key and record ID
-            $cell.append(`
-                <button class='delete_btn' transaction-key='${firebaseKey}'>
-                    $${dollarValue} ${description}, ${date}
-                </button>
-            `);
-            
-            $row.append($cell);
-            
-            //* Append the new row to the table body
-            tableBody.append($row);
+        if (this.frequency == 'weekly'){
+            range_length = 7
         }
-    });
-   }
-    
+        if (this.frequency == 'biweekly'){
+            range_length = 14
+        }
 
+        if (direction == 'backwards'){
+            this.currentPeriodStart.setDate(this.currentPeriodStart.getDate() - range_length); 
+            this.currentPeriodEnd.setDate(this.currentPeriodEnd.getDate() - range_length); 
+        }
+        if (direction == 'forwards'){
+            this.currentPeriodStart.setDate(this.currentPeriodStart.getDate() + range_length); 
+            this.currentPeriodEnd.setDate(this.currentPeriodEnd.getDate() + range_length); 
+        }
+    }
 
+    resetCurrentPeriod(){
+        //* This resets the period to be the current date range
+        const { currentPeriodStart, currentPeriodEnd } = dateManager.determinePayPeriodDates(this.payDay, this.frequency);
+        
+        //* These get defaulted to the current at start of program. 
+        //* Can be globally changed in moveCurrentPeriod()
+        this.currentPeriodStart = currentPeriodStart;
+        this.currentPeriodEnd = currentPeriodEnd;
+    }
 
+    async _updateDeleteTable(data){
+        //* This will update the delete table. Called during page load and after a
+        //* delete request
+
+        const tableBody = $('#spending_log_table_deleted tbody'); 
+
+            //* Clear the table before adding new rows
+            tableBody.empty();
+
+            for (let i = 0; i < data.length; i++) {
+                const transaction = data[i];
+                const { Price, Description, Date } = transaction; // Destructure the transaction fields
+
+                //* Create a new row with a delete button
+                const $row = $('<tr class="dlt_btn_row"></tr>');
+                const $cell = $('<td></td>'); 
+
+                //* Create a delete button with that has the record id in the meta tag so it can
+                //* be used to delete the right record
+                $cell.append(`
+                    <button class='delete_btn' transaction-id='${transaction['id']}'>
+                        $${Price} ${Description}, ${Date}
+                    </button>
+                `);
+
+                //* Append the cell to the row and then the row to the table body
+                $row.append($cell);
+                tableBody.append($row);
+            }
+        }
 }
 
-export default DatabaseReader
+export default DatabaseReader2;

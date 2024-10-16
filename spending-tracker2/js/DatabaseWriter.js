@@ -1,28 +1,30 @@
-import { ref, push, remove} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-//* ref: creates a reference to a specific path in the database. 'transactions', i think for this one
-//* push: lets you add to database
-//* get: used to fetch data, it returns a promise that resolves to a DataSnapshot object
-// *     containing the data at the reference
-import { db } from './firebaseSetup.js';
+//* Local imports
+import DateManager from './DateManager.js'
 
+//* Class declarations
+const dateManager = new DateManager();
 
-class DatabaseWriter {
+class DatabaseWriter2 {
     constructor() {
-        this.transactionsRef = ref(db, 'transactions')
+        // Replace these with your actual URL and anon key
+        const SUPABASE_URL = 'https://gkzfslszwxcncnoiuksq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdremZzbHN6d3hjbmNub2l1a3NxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg4NTM3NjIsImV4cCI6MjA0NDQyOTc2Mn0.dxCStAG5cDqENDHMKLdOkCeqTnDTjN3k-tz_10EJ6b8';
+
+        // Create a Supabase client
+        this.supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     }
 
-    //! WRITES
     async processPurchaseEntry() {
         //* Gather the inputs provided by the user
-        const mainPurchaseEntry = $('#main_purchase_entry').val();
-        const dateEntry = $('#date-entry').val();
-        console.log(typeof dateEntry)
+        let mainPurchaseEntry = $('#main_purchase_entry').val();
+        let dateEntry = $('#date-entry').val();
+    
         if (this._validateTransactionInput(mainPurchaseEntry)) {
             //* Split the string into dollarValue and description
-            const { dollarValue, description } = this._split_input_into_dollar_and_desc(mainPurchaseEntry);
+            const { dollarValue, description } = this._splitInputIntoDollarAndDesc(mainPurchaseEntry);
     
             //* Add transaction to database
-            await this._writeToDatabase(dollarValue, description, dateEntry);
+            await this.insertTransaction(dollarValue,description,dateEntry)
             
             $('#error-box').hide();
             return true;  // Return true if entry is successful
@@ -32,15 +34,20 @@ class DatabaseWriter {
     }
 
     _validateTransactionInput(inputStr){
+        //* Makes sure input is valid
+
         //Trim input
         const trimmedInput = inputStr.trim();
         //Find where the whitespace is
         const spaceIndex = trimmedInput.indexOf(' ');
         //Grab description from string
         const description = trimmedInput.substring(spaceIndex + 1).trim();
+        //Grab price for sring
+        const price = trimmedInput.substring(0, spaceIndex).trim();
         //Valid chars
         const validCharsPattern = /^[a-zA-Z0-9$ .]+$/;
-        
+        const validPricePattern = /^\d+(\.\d+)?$/  //* Only numerics
+
         //Set default
         let isValid = true
         let message = ''
@@ -56,6 +63,12 @@ class DatabaseWriter {
         }else if (!validCharsPattern.test(trimmedInput)) {// If there are any characters besides normal letters, numbers, spaces, and the dollar sign
             isValid = false
             message = 'Input contains invalid characters'
+        } else if (!validPricePattern.test(price)) { // Check if price is a valid number
+            isValid = false;
+            message = 'Price must be a valid number';
+        } else if (parseFloat(price) < 0) { // Check if price is non-negative
+            isValid = false;
+            message = 'Price must be a non-negative number';
         }
 
         if (isValid == false) {
@@ -68,59 +81,81 @@ class DatabaseWriter {
 
     }
 
-    _split_input_into_dollar_and_desc(inputStr){
-         //**
-         //* Parses inputStr to get the dollar value and desc of each input. Used to promote
-         //* faster/easier inputs for the user.
-         //* 
-         //* @param {str} [inputStr] - [The user input from $(#'main_purchase_entry')]
-         //*
-         //* @return {int} [dollarValue] [The dollar value of the transacation, parsed from the inputStr]
-         //* @return {str} [description] [The description of the transacation, parsed from the inputStr]
-         //*/
-        if (inputStr.charAt(0) === '$') {
-            //* Remove the dollar sign from the string, if it exists
-            inputStr = inputStr.substring(1);
+    _splitInputIntoDollarAndDesc(inputStr){
+        //*
+        //* Parses inputStr to get the dollar value and desc of each input. 
+        //* Used because to be able to enter a purchase as quickly as possible
+        
+        
+       if (inputStr.charAt(0) === '$') {
+           //* Remove the dollar sign from the string, if it exists
+           inputStr = inputStr.substring(1);
+       }
+
+       //* Find the index of the first blank space
+       const spaceIndex = inputStr.indexOf(' ');
+
+       //* Extract 'dollar value' from the start of the string up to the first space
+       const dollarValue = inputStr.substring(0, spaceIndex);
+
+       //* Extract 'description' from the first space to the end of the string
+       const description = inputStr.substring(spaceIndex + 1);
+
+       return {
+           dollarValue: dollarValue,
+           description: description
+       };
+   }
+ 
+   
+   async insertTransaction(price, description, date, category=null) {
+    //*Inserts transaction into database
+
+    try {
+        let timestamp = dateManager.getTimestamp()
+
+        const { data, error } = await this.supabase
+            .from('Transactions') // Replace with your actual table name
+            .insert([
+                {
+                    Price: price,
+                    Description: description,
+                    Date: date, // Make sure this date is in the correct format (YYYY-MM-DD)
+                    Category: category,
+                    Insert_datetime: timestamp
+                }
+            ]);
+
+        if (error) {
+            console.error('Error inserting transaction:', error);
+            return null; // You may want to handle errors more gracefully
+        } else {
+            console.log('Transaction inserted successfully');
+            return data; // Return the inserted data if needed
         }
-
-        //* Find the index of the first blank space
-        const spaceIndex = inputStr.indexOf(' ');
-
-        //* Extract 'dollar value' from the start of the string up to the first space
-        const dollarValue = inputStr.substring(0, spaceIndex);
-
-        //* Extract 'description' from the first space to the end of the string
-        const description = inputStr.substring(spaceIndex + 1);
-
-        return {
-            dollarValue: dollarValue,
-            description: description
-        };
+    } catch (error) {
+        console.error('Error during insert operation:', error);
     }
-
-    async _writeToDatabase(dollarValue, description, date) { //async so you can use await
-        const record_for_entry = {dollarValue, description, date };
-      
-        try {
-          await push(this.transactionsRef, record_for_entry); // Wait for data to be pushed
-          $('#main_purchase_entry').val(''); // Clear input field after adding data
-        } catch (error) {
-          console.error('Error adding data:', error); // Handle errors
-        }
-      }
-
-    async _deleteRecordFromDatabase(transactionKey){
-        const recordRef = ref(db, `transactions/${transactionKey}`);
-        console.log(`recordRef: ${recordRef}`)
-        return remove(recordRef)
-            .then(() => {
-                console.log(`Record with ID ${transactionKey} deleted successfully.`);
-            })
-            .catch((error) => {
-                console.error(`Error deleting record: ${error}`);
-            });
-    }
-
 }
 
-export default DatabaseWriter;
+   async deleteRecordFromDatabase(transactionId){
+        //* This will delete a record from the database based on the ID given as an arg
+        try {
+            
+            const { data, error } = await this.supabase
+                .from('Transactions')
+                .delete()
+                .eq('id', transactionId);  //* Use 'id' to match the record for deletion
+    
+            if (error) {
+                console.error('Error deleting transaction:', error);
+            } else {
+                console.log('Transaction deleted:', data);
+            }
+        } catch (error) {
+            console.error('Unexpected error while deleting transaction:', error);
+        }
+   }
+   
+}
+export default DatabaseWriter2;

@@ -1,0 +1,54 @@
+.nav_button {
+    padding: 10px 20px; /* Button padding */
+    background-color: #007bff; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+    display: inline-flex; /* Align items horizontally */
+    /**align-items: center; /* Vertically center text or image */
+    text-align: center; /* Center text */
+    gap: 10px; /* Space between image and text if needed */
+    outline: none; /* Remove outline on focus */
+    position: absolute; /* Position the button absolutely inside the container */
+    top: 10px; /* Distance from the top */
+    left: 10px;
+}
+/* Specific styles for the button with only an image (no text) */
+#go_to_spending_log_btn {
+    padding: 0; /* No padding, since no text is present */
+    background: transparent; /* No background color */
+    background-image: url('assets\\spreadsheetIcon.png'); /* Image URL */
+    background-color: transparent;
+    background-repeat: no-repeat; /* Prevent repeating the image */
+    background-size: 40px 40px; /* Adjust the size of the image */
+    width: 40px; /* Set the button width to match the image size */
+    height: 40px; /* Set the button height to match the image size */
+    border-radius: 5px; /* Optional: maintain the rounded corners */
+    position: absolute; /* Position the button absolutely inside the container */
+    top: 10px; /* Distance from the top */
+    left: 10px; /* Distance from the left */
+}
+
+
+
+#close_admin_page_btn {
+    position: absolute;
+    top: 10px; /* adjust as needed */
+    left: 10px; /* adjust as needed */
+   
+}
+
+#go_to_purchase_entry_btn{
+    padding: 0; /* No padding, since no text is present */
+    background-color: transparent; /* No background color */
+    background-image: url('assets\\spreadsheetIcon.jpg'); /* Image URL */
+    background-repeat: no-repeat; /* Prevent repeating the image */
+    background-size: 40px 40px; /* Adjust the size of the image */
+    width: 40px; /* Set the button width to match the image size */
+    height: 40px; /* Set the button height to match the image size */
+}
+
+#go_to_setting_page_btn{
+    left: 20px;
+}

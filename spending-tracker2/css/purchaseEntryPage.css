@@ -12,7 +12,7 @@
     -webkit-text-stroke-width: 1.3px;
     -webkit-text-stroke-color: black;
     margin: 0;
-    font-family:cursive;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .input_container{
@@ -48,7 +48,7 @@
     border: none;
     border-radius: 5px;
     color: white;
-    font-family:cursive;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 12px;
 }
 
@@ -62,7 +62,7 @@
     cursor: pointer; 
     right: 50%;
     transform: translateX(50%);   
-    font-family:cursive;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 12px; 
 }
 

@@ -1,29 +1,26 @@
 
 #spending_log_header{
     position: relative;
-    top: 1%;
+    margin-top: 40px;
     color:white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     -webkit-text-stroke-width: 1.3px;
     -webkit-text-stroke-color: black;
+    font-size: 24px;
 }
 
 #sum_display {
     position: relative;
-    top: 1%;
+    margin-top: 20px;
     color:white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-style: italic;
+    font-size: 23px;
 }
 
-#date_display_table{
-    display: flex;
-    justify-content: center;
-    position: relative;
-    color:white;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
 #date_display {
+    width: 100%;
+    padding: 10px;
     display: flex;
     justify-content: center; 
     align-items: center; 
@@ -32,13 +29,29 @@
     display: inline-block;
 }
 
+#date_display_table{
+    display: flex;
+    margin-top: 5px;
+    justify-content: center;
+    position: relative;
+    color:white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.date_display_outer_columns{
+    padding-left: 15px; 
+    padding-right: 15px; 
+}
+
 #filter_date_backwards_btn,#filter_date_forwards_btn{
+    padding: 6px 10px; 
     background-color: #5c5c9c;
-    border: 1px solid white;
     border-radius: 8px;
     color: white;
     text-align: center;
     cursor: pointer;
+    min-width: 20px;
+    min-height: 20px;
 }
 
 
@@ -52,7 +65,7 @@
     top: 4%;
     color: white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 #spending_log_table th, #spending_log_table td {

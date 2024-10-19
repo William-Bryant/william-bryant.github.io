@@ -3,7 +3,7 @@
     font-size: xx-large;
 }
 #dollar_sign{
-    font-size: medium;
+    font-size: 14px;
 }
 #purchase_entry_header {
     position: relative;
@@ -16,18 +16,24 @@
 }
 
 .input_container{
+    margin-top: 5px;
     position: relative;
     color: white;
+    display: flex;
+    align-items: center;
 }
-
+#dollar_sign{
+    margin-right: 5px;
+    text-align: center;
+}
 #main_purchase_entry{
-    padding: 5px;
+    padding: 15px;
     width: 90%;
     background-color: #666699;
     border-color: #666699;
     border-radius: 5px;
     font-style: italic;
-    font-size: 8px;
+    font-size: 14px;
 }
 #main_purchase_entry::placeholder{
     color:white;
@@ -36,20 +42,24 @@
     border: none; 
     color:white;
     box-shadow: 0 0 5px rgba(255, 87, 51, 0.5);
-
 }
 
 #date_container {
+    position: relative;
+    margin-top: 5px;
+    justify-content: center; 
     width: 100%; 
     box-sizing: border-box;
 }
 #date-entry{
+    position: relative;
+    margin-top: 5px;
     background-color: grey;
     border: none;
     border-radius: 5px;
     color: white;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 #submit_btn {
@@ -63,7 +73,7 @@
     right: 50%;
     transform: translateX(50%);   
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 12px; 
+    font-size: 14px; 
 }
 
 #error-box {

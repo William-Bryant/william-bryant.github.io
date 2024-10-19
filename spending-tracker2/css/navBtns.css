@@ -20,9 +20,9 @@
     background-image: url('assets\\spreadsheet.png');
     background-color: transparent;
     background-repeat: no-repeat; 
-    background-size: 50px 50px; 
-    width: 50px; 
-    height: 50px; 
+    background-size: 60px 60px; 
+    width: 60px; 
+    height: 60px; 
     border-radius: 5px; 
     position: absolute; 
     top: .5%;
@@ -40,9 +40,9 @@
     background-color: transparent; 
     background-image: url('assets\\pencilPaper.png'); 
     background-repeat: no-repeat; 
-    background-size: 40px 40px;
-    width: 40px;
-    height: 40px; 
+    background-size: 50px 50px;
+    width: 50px;
+    height: 50px; 
 }
 
 #go_to_settings_page_btn1, #go_to_settings_page_btn2{
@@ -50,9 +50,9 @@
     background-color: transparent; 
     background-image: url('assets\\settingsLogo.png'); 
     background-repeat: no-repeat; 
-    background-size: 20px 20px; 
-    width: 20px; 
-    height: 20px;
+    background-size: 30px 30px; 
+    width: 30px; 
+    height: 30px;
     left: unset;
     right: 10px;}
 

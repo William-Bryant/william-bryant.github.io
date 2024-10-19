@@ -1,5 +1,5 @@
 #purchase_entry_page_content {
-    padding-top: 25%;
+    padding-top: 40%;
     font-size: xx-large;
 }
 #dollar_sign{
@@ -53,7 +53,7 @@
 }
 #date-entry{
     position: relative;
-    margin-top: 5px;
+    margin-top: 10px;
     background-color: grey;
     border: none;
     border-radius: 5px;
@@ -63,8 +63,8 @@
 }
 
 #submit_btn {
-    position: fixed; 
-    margin-top: 2%;
+    position: relative; 
+    margin-top: 10%;
     background-color: #666699; 
     color: white;
     border: 1px solid black; 

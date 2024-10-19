@@ -25,4 +25,5 @@ body {
     padding: 20px;
     border-radius: 2%;
     background: linear-gradient(#ff5050,#666699);
-   }
+    background: -webkit-linear-gradient(#ff5050,#666699);
+}

@@ -13,17 +13,22 @@
     <main>
 
         <div class="page" id="spending_log_page">
+            <button class='nav_button' id="go_to_purchase_entry_btn"></button>
+            <button class='nav_button' id="go_to_settings_page_btn2"></button>
 
-
-                <button class='nav_button' id="go_to_purchase_entry_btn">Enter Purchase</button>
-                <button class='nav_button' id="go_to_setting_page_btn">Settings</button>
-
+            <h2 id="spending_log_header">Spending Log</h2>
+            
+            <div id='sum_display'>
+                <span id="total_spent_display_char">Total Spent: </span>
+                <span id="total_spent_display_num"></span>
+            </div>
+            
             <div id="date_display">
                 <table id="date_display_table">
                     <thead>
                         <tr>
                             <td>
-                                <button class='date_filter_btn' id="filter_date_backwards_forward_btn">&lt;</button>  
+                                <button class='date_filter_btn' id="filter_date_backwards_btn">&lt;</button>  
                             </td>
                             <td id="date_display_dates">
                                 <span id="cycle_start"></span> - <span id="cycle_end"></span>
@@ -36,11 +41,6 @@
 
                 </table>
             </div>
-
-            <p><span id="total_spent_display_char">Total Spent: </span>
-                <span id="total_spent_display_num"></span>
-            </p>
-            
 
             <table id="spending_log_table">
                 <thead>
@@ -58,11 +58,13 @@
         <div class="page" id="purchase_entry_page">
             <div id = "purchase_entry_page_content">
                 <button class='nav_button' id="go_to_spending_log_btn"></button>
+                <button class='nav_button' id="go_to_settings_page_btn1"></button>
+
                 <p id="purchase_entry_header"> Purchase Entry</p>
                
                 <div class="input_container">
                     <span id="dollar_sign">$</span>
-                    <input type="text" id="main_purchase_entry" placeholder="Enter amount">
+                    <input type="text" id="main_purchase_entry" placeholder="Ex. '25 wawa'">
                 </div>
                 <div class="input_container" id="date_container">
                     <input type="date" id="date-entry">
@@ -76,13 +78,13 @@
             
 
             <div id="admin_home">
-            <button class='nav_button' id="close_admin_page_btn">Return</button>
+            <button class='nav_button' id="close_admin_page_btn"></button>
 
             <button id="go_to_delete_records_btn">Delete Records</button>
             </div>
 
             <div id="spending_log_table_deleted_div">
-                <button class="nav_button" id="close_delete_table_btn">Back</button>
+                <button class="nav_button" id="close_delete_table_btn"></button>
 
 
                 <table id="spending_log_table_deleted">

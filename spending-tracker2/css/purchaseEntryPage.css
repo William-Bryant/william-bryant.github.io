@@ -1,44 +1,72 @@
 #purchase_entry_page_content {
-    padding-top: 50%; /* Puts in middle */
+    padding-top: 25%;
     font-size: xx-large;
-}
-
-#purchase_entry_header {
-    font-weight: bold;
-    margin-top: 10%;
 }
 #dollar_sign{
     font-size: medium;
 }
+#purchase_entry_header {
+    position: relative;
+    font-weight: bold;
+    color: white;
+    -webkit-text-stroke-width: 1.3px;
+    -webkit-text-stroke-color: black;
+    margin: 0;
+    font-family:cursive;
+}
 
+.input_container{
+    position: relative;
+    color: white;
+}
 
-#main_purchase_entry {
+#main_purchase_entry{
+    padding: 5px;
     width: 90%;
-    padding-left: -40px;
+    background-color: #666699;
+    border-color: #666699;
+    border-radius: 5px;
+    font-style: italic;
+    font-size: 8px;
+}
+#main_purchase_entry::placeholder{
+    color:white;
+}
+#main_purchase_entry:focus {
+    border: none; 
+    color:white;
+    box-shadow: 0 0 5px rgba(255, 87, 51, 0.5); /
 }
 
 #date_container {
-    padding-top: 2%;
-    width: 100%; /* Full width of the parent container */
+    width: 100%; 
     box-sizing: border-box;
 }
-
-
+#date-entry{
+    background-color: grey;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family:cursive;
+    font-size: 12px;
+}
 
 #submit_btn {
-    position: fixed; /* Keep the button fixed on the screen */
+    position: fixed; 
     margin-top: 2%;
-    background-color: #007bff; /* Button background color */
-    color: white; /* Button text color */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Change cursor on hover */
+    background-color: #666699; 
+    color: white;
+    border: 1px solid black; 
+    border-radius: 5px; 
+    cursor: pointer; 
     right: 50%;
-    transform: translateX(50%);    
+    transform: translateX(50%);   
+    font-family:cursive;
+    font-size: 12px; 
 }
 
 #error-box {
-    display: none; /* Hidden by default */
+    display: none; 
     color: red;
     background-color: #f8d7da;
     padding: 10px;

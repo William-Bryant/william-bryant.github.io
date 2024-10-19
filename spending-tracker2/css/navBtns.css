@@ -1,54 +1,67 @@
 .nav_button {
-    padding: 10px 20px; /* Button padding */
-    background-color: #007bff; /* Button background color */
-    color: white; /* Button text color */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Change cursor on hover */
-    display: inline-flex; /* Align items horizontally */
-    /**align-items: center; /* Vertically center text or image */
-    text-align: center; /* Center text */
-    gap: 10px; /* Space between image and text if needed */
-    outline: none; /* Remove outline on focus */
-    position: absolute; /* Position the button absolutely inside the container */
-    top: 10px; /* Distance from the top */
-    left: 10px;
+    padding: 10px 20px; 
+    background-color: #007bff;
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    display: inline-flex; 
+    text-align: center;
+    gap: 10px; 
+    outline: none; 
+    position: absolute; 
+    top: 2%; 
+    left: 2%;
 }
-/* Specific styles for the button with only an image (no text) */
+
 #go_to_spending_log_btn {
-    padding: 0; /* No padding, since no text is present */
-    background: transparent; /* No background color */
-    background-image: url('assets\\spreadsheetIcon.png'); /* Image URL */
+    padding: 0; 
+    background: transparent;
+    background-image: url('assets\\spreadsheet.png');
     background-color: transparent;
-    background-repeat: no-repeat; /* Prevent repeating the image */
-    background-size: 40px 40px; /* Adjust the size of the image */
-    width: 40px; /* Set the button width to match the image size */
-    height: 40px; /* Set the button height to match the image size */
-    border-radius: 5px; /* Optional: maintain the rounded corners */
-    position: absolute; /* Position the button absolutely inside the container */
-    top: 10px; /* Distance from the top */
-    left: 10px; /* Distance from the left */
+    background-repeat: no-repeat; 
+    background-size: 50px 50px; 
+    width: 50px; 
+    height: 50px; 
+    border-radius: 5px; 
+    position: absolute; 
+    top: .5%;
+    left: .5%;
 }
-
-
 
 #close_admin_page_btn {
     position: absolute;
-    top: 10px; /* adjust as needed */
-    left: 10px; /* adjust as needed */
-   
+    top: 10px; 
+    left: 10px;
 }
 
 #go_to_purchase_entry_btn{
-    padding: 0; /* No padding, since no text is present */
-    background-color: transparent; /* No background color */
-    background-image: url('assets\\spreadsheetIcon.jpg'); /* Image URL */
-    background-repeat: no-repeat; /* Prevent repeating the image */
-    background-size: 40px 40px; /* Adjust the size of the image */
-    width: 40px; /* Set the button width to match the image size */
-    height: 40px; /* Set the button height to match the image size */
+    padding: 0; 
+    background-color: transparent; 
+    background-image: url('assets\\pencilPaper.png'); 
+    background-repeat: no-repeat; 
+    background-size: 40px 40px;
+    width: 40px;
+    height: 40px; 
 }
 
-#go_to_setting_page_btn{
-    left: 20px;
+#go_to_settings_page_btn1, #go_to_settings_page_btn2{
+    padding: 0; 
+    background-color: transparent; 
+    background-image: url('assets\\settingsLogo.png'); 
+    background-repeat: no-repeat; 
+    background-size: 20px 20px; 
+    width: 20px; 
+    height: 20px;
+    left: unset;
+    right: 10px;}
+
+
+#close_admin_page_btn {
+    background-color: transparent;
+    background-image: url('assets\\returnLogo.png'); 
+    background-repeat: no-repeat; 
+    background-size: 30px 30px; 
+    width: 30px; 
+    height: 30px;
 }

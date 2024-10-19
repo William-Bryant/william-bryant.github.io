@@ -1,33 +1,65 @@
+
+#spending_log_header{
+    position: relative;
+    top: 1%;
+    color:white;
+    font-family: cursive;
+    -webkit-text-stroke-width: 1.3px;
+    -webkit-text-stroke-color: black;
+}
+
+#sum_display {
+    position: relative;
+    top: 1%;
+    color:white;
+    font-family: cursive;
+    font-style: italic;
+}
+
 #date_display_table{
     display: flex;
     justify-content: center;
     position: relative;
+    color:white;
+    font-family: cursive;
 }
 #date_display {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically, if needed */
-    margin-top: 20%;
+    justify-content: center; 
+    align-items: center; 
+    position: relative;
+    top: 3%;
+    display: inline-block;
 }
 
-#filter_date_forwards_btn{
-   opacity: 0;
+#filter_date_backwards_btn,#filter_date_forwards_btn{
+    background-color: #5c5c9c;
+    border: 1px solid white;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
 }
 
-#spending_sum_display {
-    font-size: 12;
-}
 
 #spending_log_table {
     width: 100%;
     max-width: 600px;
     border-collapse: collapse;
     margin: 0 auto;
-    background-color: #fff;
+    background-color: #5c5c9c;
+    position: relative;
+    top: 4%;
+    color: white;
+    font-family: cursive;
+    font-size: 12px;
 }
 
 #spending_log_table th, #spending_log_table td {
-    padding: 10px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+    padding-left: 0;
+    padding-right: 0;
     text-align: center;
     border: 1px solid #ddd;
     font-weight: bold;

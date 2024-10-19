@@ -61,7 +61,6 @@ class BtnManager {
         }
     }
 
-
     seePrevWeekData(){
         dbReader.moveCurrentPeriod('backwards')
         dbReader.updateLocalDisplays()
@@ -71,9 +70,6 @@ class BtnManager {
         dbReader.moveCurrentPeriod('forwards')
         dbReader.updateLocalDisplays()
     }
-
-
-
 
     _reset_user_view(){
       //  $('html, body').animate({ scrollTop: 0 }, 'fast');

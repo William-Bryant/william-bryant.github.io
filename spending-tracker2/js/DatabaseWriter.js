@@ -70,6 +70,10 @@ class DatabaseWriter2 {
             isValid = false;
             message = 'Price must be a non-negative number';
         }
+         else if (description.length > 25){
+            isValid = false;
+            message = 'Entry is too long'
+         }
 
         if (isValid == false) {
             $('#error-box').text(message).fadeIn().delay(300).fadeOut();

@@ -17,17 +17,6 @@ $(document).ready(function() {
     //$('#spending_log_page').show();
     $('#purchase_entry_page').show();
     dbReader.updateLocalDisplays()
-    //dateManager.get_date_range_for_current_week()
-
-    //* TEmps
-    //$('#purchase_entry_page').hide();
-
-
-
-
-    //dbReader.updateLocalDisplays()
-    //dbReader.moveCurrentPeriod('backwards')
-    //dbReader.updateLocalDisplays()
 
     $('#spending_log_table_deleted_div').hide()
 
@@ -58,10 +47,11 @@ $('#go_to_purchase_entry_btn').click(btnManager.switchToPurchaseEntryPage);
 $('#go_to_spending_log_btn').click(btnManager.switchToSpendingLogPage);
 $('#submit_btn').click(btnManager.handleSubmit)
 
-$('#filter_date_backwards_forward_btn').click(btnManager.seePrevWeekData)
+$('#filter_date_backwards_btn').click(btnManager.seePrevWeekData)
 $('#filter_date_forwards_btn').click(btnManager.seeCurrWeekData)
 
-$('#go_to_setting_page_btn').click(btnManager.switchToSettingsPage)
+$('#go_to_settings_page_btn1').click(btnManager.switchToSettingsPage)
+$('#go_to_settings_page_btn2').click(btnManager.switchToSettingsPage)
 $('#close_admin_page_btn').click(btnManager.switchToSpendingLogPage)
 $('#go_to_delete_records_btn').click(btnManager.goToDeleteRecords)
 $('#close_delete_table_btn').click(btnManager.closeDeleteTable)

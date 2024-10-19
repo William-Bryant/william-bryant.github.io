@@ -102,7 +102,7 @@ class DatabaseReader2 {
         //* Iterate through each item in the data array
         data.forEach(item => {
             const $row = $('<tr></tr>');
-            $row.append(`<td>${item['Price']}</td>`); 
+            $row.append(`<td>$${item['Price']}</td>`); 
             $row.append(`<td>${item['Description']}</td>`);
             $row.append(`<td>${item['Date']}</td>`); //* Ensure the date is in the correct format
 
